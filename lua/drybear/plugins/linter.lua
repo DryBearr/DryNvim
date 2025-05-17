@@ -4,7 +4,9 @@ return {
 	config = function()
 		local lint = require("lint")
 
-		lint.linters_by_ft = {} --TODO:
+		lint.linters_by_ft = {
+			"golangci-lint",
+		} --TODO:
 
 		local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
 
@@ -14,5 +16,9 @@ return {
 				lint.try_lint()
 			end,
 		})
+		--set keymaps for linter
+		vim.keymap.set("n", "<leader>l", function()
+			lint.try_lint()
+		end, { desc = "Trigger linting for current file" })
 	end,
 }
